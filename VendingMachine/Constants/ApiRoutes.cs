@@ -2,10 +2,10 @@
 {
     internal static class ApiRoutes
     {
-        internal static class IceAndFire
+        internal static class CoinsRouter
         {
-            internal const string BaseRoute = "iceandfire";
-            internal const string CharactersById = "api/characters/{id}";
+            internal const string BaseRoute = "coins/getcoins";
+            //internal const string CharactersById = "api/characters/{id}";
         }
     }
 }

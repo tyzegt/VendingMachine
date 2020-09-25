@@ -1,8 +1,12 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using VendingMachine.Data;
+using VendingMachine.Services;
 
 namespace VendingMachine
 {
@@ -17,10 +21,16 @@ namespace VendingMachine
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddHttpClient();
-            
+            services.AddHttpClient(); 
+            services.AddDbContext<ApplicationDbContext>(options =>
+                 options.UseNpgsql(Configuration["Data:DefaultConnection:ConnectionString"]), ServiceLifetime.Transient);
             services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
             services.AddMvc();
+            services.AddSession(options => {
+                options.IdleTimeout = TimeSpan.FromMinutes(10);
+            });
+            services.AddHttpContextAccessor();
+            services.AddTransient<ICoinService, CoinService>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -31,6 +41,7 @@ namespace VendingMachine
             }
 
             app.UseStaticFiles();
+            app.UseSession();
 
             app.UseMvc(routes =>
             {
@@ -42,7 +53,7 @@ namespace VendingMachine
                 routes.MapRoute(
                    name: "app-fallback",
                    template: "{*anything}/",
-                   defaults: new { controller = "Template", action = "Index" });
+                   defaults: new { controller = "Home", action = "Index" });
             });
         }
     }

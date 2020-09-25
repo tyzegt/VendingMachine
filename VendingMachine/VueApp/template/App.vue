@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="container">
-            Content coming soon...
+            <VendingMachine></VendingMachine>
         </div>
 
         <div class="container">
@@ -16,10 +16,15 @@
 
 <script lang="ts">
 
-import { Vue, Component } from 'vue-property-decorator'
+import { Vue, Component } from 'vue-property-decorator';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap-vue/dist/bootstrap-vue.css';
 
 @Component({
-    name: 'App'
+    components: {
+        VendingMachine: require("@/template/components/VendingMachine/VendingMachine.vue").default,
+    },
+    name: 'App',
 })
 export default class App extends Vue { }
 </script>

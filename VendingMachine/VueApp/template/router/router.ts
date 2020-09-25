@@ -1,31 +1,29 @@
 import VueRouter from 'vue-router'
 
 // Pages
-import Vuex from '@/template/views/Vuex.vue'
-import TemplateInfo from '@/template/views/TemplateInfo.vue'
-import ThirdPartyLibraries from '@/template/views/ThirdPartyLibraries.vue'
+import VendingMachine from '@/template/components/VendingMachine/VendingMachine.vue'
 
 
 const routes = [
 	{
 		path: '*',
-		redirect: { name: 'templateInfo' }
+		redirect: { name: 'home' }
 	},
 	{
-		name: 'templateInfo',
-		path: `/info`,
-		component: TemplateInfo
+		name: 'home',
+		path: `/`,
+		component: VendingMachine
 	},
-	{
-		name: 'vuex',
-		path: `/vuex`,
-		component: Vuex
-	},
-	{
-		name: 'thirdpartylibraries',
-		path: `/thirdpartylibraries`,
-		component: ThirdPartyLibraries
-	}
+	// {
+	// 	name: 'vuex',
+	// 	path: `/vuex`,
+	// 	component: Vuex
+	// },
+	// {
+	// 	name: 'thirdpartylibraries',
+	// 	path: `/thirdpartylibraries`,
+	// 	component: ThirdPartyLibraries
+	// }
 ]
 
 export const router = new VueRouter({
