@@ -7,6 +7,7 @@ import Coin from "@/template/models/Coin";
 @Component({
     components: {
         MessageDisplay: require("@/template/components/MessageDisplay/MessageDisplay.vue").default,
+        Showcase: require("@/template/components/Showcase/Showcase.vue").default,
     }
 })
 export default class VendingMachine extends Vue {
@@ -91,7 +92,7 @@ export default class VendingMachine extends Vue {
     }
 
     getCoinVariant(isAvailable: boolean) {
-        if (isAvailable) return "success";
+        if (isAvailable) return "primary";
         else return "secondary";
     }
 }

@@ -41,6 +41,9 @@
             </b-col>
         </b-row>
         
+        <hr>
+        <Showcase></Showcase>
+
     </div>
 </template>
 
