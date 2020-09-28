@@ -50,6 +50,11 @@ namespace VendingMachine.Services
             _httpContextAccessor.HttpContext.Session.SetInt32("StoredSum", GetSum() + value);
         }
 
+        public void Purchase(int sum)
+        {
+            _httpContextAccessor.HttpContext.Session.SetInt32("StoredSum", GetSum() - sum);
+        }
+
         public List<Coin> ReturnChange()
         {
             var sum = GetSum();

@@ -3,6 +3,7 @@ import { Component, Prop} from "vue-property-decorator";
 import axios from "axios";
 import { VueperSlides, VueperSlide } from 'vueperslides';
 import Category from "@/template/models/Category";
+import Product from "@/template/models/Product";
 
 
 @Component({
@@ -29,5 +30,9 @@ export default class Showcase extends Vue {
         .catch(error => {
             console.log(error.response);
         });
+    }
+
+    purchased(product: Product) {
+        this.$emit("purchased", product);
     }
 }

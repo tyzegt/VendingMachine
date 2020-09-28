@@ -4,7 +4,10 @@
             <CarouselSkeleton v-for="i in 8" :key="i"></CarouselSkeleton>
         </div>
         <div v-else>
-            <ProductsCarousel v-for="category in categories" :key="category.id" :category="category">
+            <ProductsCarousel @purchased="purchased"
+                v-for="category in categories" 
+                :key="category.id" 
+                :category="category">
             </ProductsCarousel>
         </div>
 

@@ -2,6 +2,8 @@ import Vue from "vue";
 import { Component, Prop} from "vue-property-decorator";
 import axios from "axios";
 import Coin from "@/template/models/Coin";
+import Product from "@/template/models/Product";
+import store from "@/template/store/store";
 
 
 @Component({
@@ -15,13 +17,23 @@ export default class VendingMachine extends Vue {
     message: string = "Добро пожаловать!";
     coins: Coin[] = [];
     loadingCoin = false;
-    totalSum: number = 0;
     loadingSum = true;
     
     mounted() {
         console.log("VendingMachine mounted");
+        this.refresh();
+    }
+
+    refresh() {
         this.getSum();
         this.getCoins();
+    }
+
+    purchase(product: Product) {
+        this.message = "Вы купили товар '" + product.name + "' за " + product.price + "р. ";
+        var change = this.$store.state.totalSum - product.price;
+        if(change > 0) this.message += "Ваша сдача: " + change + "р.";
+        this.refresh();
     }
 
     returnChange() {
@@ -36,7 +48,7 @@ export default class VendingMachine extends Vue {
                 }
             }
 
-            this.totalSum = 0;
+            this.$store.state.totalSum = 0;
         })
         .catch(error => {
             console.log(error.response);
@@ -58,7 +70,7 @@ export default class VendingMachine extends Vue {
 
     getSum() {
         axios.get("/Coins/GetSum").then(result => {
-            this.totalSum = result.data;
+            this.$store.state.totalSum = result.data; 
             this.loadingSum = false;
         })
         .catch(error => {
@@ -79,9 +91,10 @@ export default class VendingMachine extends Vue {
         this.loadingCoin = true;
         if(coin.isAvailable) { 
             axios.post("/Coins/DepositCoin?coinId=" + coin.id).then(result => {
-                this.totalSum = result.data;
+                this.$store.state.totalSum = result.data;
                 this.loadingCoin = false;
                 this.message = "Внесена монета номиналом " + coin.value + "р.";
+                this.getCoins();
             })
             .catch(error => {
                 console.log(error.response);
@@ -89,6 +102,10 @@ export default class VendingMachine extends Vue {
                 this.message = "Не удалось внести монету";
             });            
         }
+    }
+
+    getTotalSum() {
+        return this.$store.state.totalSum;
     }
 
     getCoinVariant(isAvailable: boolean) {

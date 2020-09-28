@@ -32,4 +32,18 @@ export default class ProductsCarousel extends Vue {
             console.log(error.response);
         }); 
     }
+
+    buy(product: Product) {
+        if(product.count > 0 && this.$store.state.totalSum >= product.price) {
+            axios.post("/Product/Buy?productId=" + product.id).then(result => {
+                if(result.data) {
+                    this.$emit("purchased", product);
+                    this.getProducts();
+                }
+            })
+            .catch(error => {
+                console.log(error.response);
+            }); 
+        }
+    }
 }

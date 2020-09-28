@@ -27,13 +27,13 @@
             <b-col>
                 <h4>Внесённая сумма: 
                     <b-spinner v-if="loadingSum" variant="secondary"></b-spinner>
-                    <span v-else>{{totalSum}}</span>
+                    <span v-else>{{getTotalSum()}}</span>
                 </h4>
             </b-col>
             <b-col>
                 <b-button 
                     @click="returnChange"
-                    :disabled="totalSum == 0" 
+                    :disabled="getTotalSum() == 0" 
                     class="float-right" 
                     variant="warning">
                     Вернуть деньги
@@ -42,7 +42,7 @@
         </b-row>
         
         <hr>
-        <Showcase></Showcase>
+        <Showcase @purchased="purchase"></Showcase>
 
     </div>
 </template>

@@ -15,5 +15,6 @@ namespace VendingMachine.Services
         void IncreaseSum(int value);
         void ClearSum();
         List<Coin> GetCoins();
+        void Purchase(int sum);
     }
 }
