@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="container">
-            <VendingMachine></VendingMachine>
+            <router-view></router-view>
         </div>
 
         <div class="container">

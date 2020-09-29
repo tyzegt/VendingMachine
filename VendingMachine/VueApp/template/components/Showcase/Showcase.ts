@@ -4,6 +4,7 @@ import axios from "axios";
 import { VueperSlides, VueperSlide } from 'vueperslides';
 import Category from "@/template/models/Category";
 import Product from "@/template/models/Product";
+import RefData from "@/template/util/RefData";
 
 
 @Component({
@@ -21,14 +22,11 @@ export default class Showcase extends Vue {
         console.log("Showcase mounted");
         this.loadCategories();
     }
-
+    
     loadCategories() {
-        axios.get("/Category/GetCategories").then(result => {
-            this.categories = result.data;
-            console.log(this.categories);
-        })
-        .catch(error => {
-            console.log(error.response);
+        RefData.getCategories().then(result => {
+            this.categories = result;
+            console.log("cats:", this.categories);
         });
     }
 

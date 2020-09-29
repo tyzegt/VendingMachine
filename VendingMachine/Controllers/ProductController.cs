@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using VendingMachine.Data;
+using VendingMachine.Models;
 using VendingMachine.Services;
 
 namespace VendingMachine.Controllers
@@ -26,6 +27,14 @@ namespace VendingMachine.Controllers
             return _context.Products
                 .Where(x => x.CategoryId == categoryId)
                 .OrderBy(x => x.Weight)
+                .ToList();
+        }
+
+        [HttpPost]
+        public List<Product> GetAll()
+        {
+            return _context.Products
+                .OrderByDescending(x => x.Id)
                 .ToList();
         }
 

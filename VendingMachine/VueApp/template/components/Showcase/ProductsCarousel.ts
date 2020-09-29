@@ -5,6 +5,7 @@ import { VueperSlides, VueperSlide } from 'vueperslides';
 import Category from "@/template/models/Category";
 import Product from "@/template/models/Product";
 import { BIconCart4 } from 'bootstrap-vue';
+import RefData from "@/template/util/RefData";
 
 
 @Component({
@@ -24,13 +25,9 @@ export default class ProductsCarousel extends Vue {
     }
 
     getProducts() {
-        axios.get("/Product/GetByCategory?categoryId=" + this.category.id).then(result => {
-            this.products = result.data;
-            console.log(this.products);
-        })
-        .catch(error => {
-            console.log(error.response);
-        }); 
+        RefData.getProductsByCategory(this.category.id).then(result => {
+            this.products = result;
+        });
     }
 
     buy(product: Product) {
@@ -45,5 +42,9 @@ export default class ProductsCarousel extends Vue {
                 console.log(error.response);
             }); 
         }
+    }
+
+    isButtonDisabled(product: Product) {
+        return !product.isAvailable || product.count == 0 || product.price > this.$store.state.totalSum;
     }
 }

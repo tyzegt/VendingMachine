@@ -20,7 +20,7 @@
                                 <b-button 
                                     @click="buy(product)"
                                     :variant="product.isAvailable ? 'success' : 'secondary'" 
-                                    :disabled="!product.isAvailable" class="float-right" block>
+                                    :disabled="isButtonDisabled(product)" class="float-right" block>
                                     <b-icon-cart4></b-icon-cart4>
                                     Купить за <b>{{product.price}}р.</b>
                                 </b-button>

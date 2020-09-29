@@ -4,6 +4,7 @@ import axios from "axios";
 import Coin from "@/template/models/Coin";
 import Product from "@/template/models/Product";
 import store from "@/template/store/store";
+import RefData from "@/template/util/RefData";
 
 
 @Component({
@@ -79,11 +80,8 @@ export default class VendingMachine extends Vue {
     }
 
     getCoins() {
-        axios.post("/Coins/GetCoins").then(result => {
-            this.coins = result.data;
-        })
-        .catch(error => {
-            console.log(error.response);
+        RefData.getCoins().then(result => {
+            this.coins = result;
         });
     }
 

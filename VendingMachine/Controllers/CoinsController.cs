@@ -24,7 +24,7 @@ namespace VendingMachine.Controllers
         /// Возвращает все возможные виды монет
         /// </summary>
         /// <returns></returns>
-        [HttpPost]
+        [HttpGet]
         public List<Coin> GetCoins()
         {
             return _coinService.GetCoins();

@@ -13,6 +13,7 @@ namespace VendingMachine.Data
         public DbSet<Coin> Coins { get; set; }
         public DbSet<ProductCategory> ProductCategories { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<User> Users { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -147,6 +148,11 @@ namespace VendingMachine.Data
                     new Coin { Id=2, Value=2, Count=100, IsAvailable=true},
                     new Coin { Id=3, Value=5, Count=100, IsAvailable=true},
                     new Coin { Id=4, Value=10, Count=100, IsAvailable=true}
+                });
+            modelBuilder.Entity<User>().HasData(
+                new User[]
+                {
+                    new User { Id=1, Login="admin", Password="1234qwer"}
                 });
         }
     }

@@ -1,8 +1,8 @@
 import VueRouter from 'vue-router'
 
 // Pages
-import VendingMachine from '@/template/components/VendingMachine/VendingMachine.vue'
-
+import VendingMachine from '../components/VendingMachine/VendingMachine.vue'
+import AdminPanel from '../components/AdminPanel/AdminPanel.vue'
 
 const routes = [
 	{
@@ -14,16 +14,11 @@ const routes = [
 		path: `/`,
 		component: VendingMachine
 	},
-	// {
-	// 	name: 'vuex',
-	// 	path: `/vuex`,
-	// 	component: Vuex
-	// },
-	// {
-	// 	name: 'thirdpartylibraries',
-	// 	path: `/thirdpartylibraries`,
-	// 	component: ThirdPartyLibraries
-	// }
+	{
+		name: 'admin',
+		path: `/admin`,
+		component: AdminPanel
+	},
 ]
 
 export const router = new VueRouter({
