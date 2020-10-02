@@ -20,6 +20,7 @@ import { Vue, Component } from 'vue-property-decorator';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 import 'vueperslides/dist/vueperslides.css';
+import 'vue-good-table/dist/vue-good-table.css'
 
 @Component({
     components: {

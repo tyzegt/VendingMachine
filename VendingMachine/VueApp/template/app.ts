@@ -8,6 +8,8 @@ Vue.use(VueRouter)
 import store from './store/store'
 import { router } from './router/router'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
+import VueGoodTablePlugin from 'vue-good-table';
+Vue.use(VueGoodTablePlugin);
 
 
 Vue.use(BootstrapVue)

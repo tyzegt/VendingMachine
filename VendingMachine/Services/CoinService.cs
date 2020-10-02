@@ -23,6 +23,26 @@ namespace VendingMachine.Services
             _httpContextAccessor.HttpContext.Session.SetInt32("StoredSum", 0);
         }
 
+        public bool DeleteCoin(Coin coinToDelete)
+        {
+            var coin = _context.Coins.FirstOrDefault(x => x.Id == coinToDelete.Id);
+            if (coin == null) return false;
+            _context.Remove(coin);
+            _context.SaveChanges();
+            return true;
+        }
+        public bool AddCoin(Coin coin)
+        {
+            var sameCoin = _context.Coins.FirstOrDefault(x => x.Value == coin.Value);
+            if (sameCoin != null || coin.Value <= 0) return false;
+            _context.Add(new Coin() 
+            { 
+                Count = coin.Count, IsAvailable = coin.IsAvailable, Value = coin.Value 
+            });
+            _context.SaveChanges();
+            return true;
+        }
+
         public int DepositCoin(int coinId)
         {
             var coin = _context.Coins.FirstOrDefault(x => x.Id == coinId);
@@ -33,6 +53,17 @@ namespace VendingMachine.Services
                 IncreaseSum(coin.Value);
             }
             return GetSum();
+        }
+
+        public bool EditCoin(Coin editedCoin)
+        {
+            var coin = _context.Coins.FirstOrDefault(x => x.Id == editedCoin.Id);
+            if (coin == null) return false;
+            coin.IsAvailable = editedCoin.IsAvailable;
+            coin.Value = editedCoin.Value;
+            coin.Count = editedCoin.Count;
+            _context.SaveChanges();
+            return true;
         }
 
         public List<Coin> GetCoins()

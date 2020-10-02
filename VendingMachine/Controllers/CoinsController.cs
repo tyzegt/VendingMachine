@@ -57,5 +57,39 @@ namespace VendingMachine.Controllers
         {
             return _coinService.ReturnChange();
         }
+
+        /// <summary>
+        /// Редактирование монеты
+        /// </summary>
+        [HttpPost]
+        public IActionResult EditCoin([FromBody] Coin editedCoin)
+        {
+            var result = _coinService.EditCoin(editedCoin);
+            if (result) return Ok();
+            else return BadRequest();
+        }
+
+        /// <summary>
+        /// Удаление монеты
+        /// </summary>
+        [HttpPost]
+        public IActionResult DeleteCoin([FromBody] Coin coin)
+        {
+            var result = _coinService.DeleteCoin(coin);
+            if (result) return Ok();
+            else return BadRequest();
+        }
+
+
+        /// <summary>
+        /// Добавление монеты
+        /// </summary>
+        [HttpPost]
+        public IActionResult AddCoin([FromBody] Coin coin)
+        {
+            var result = _coinService.AddCoin(coin);
+            if (result) return Ok();
+            else return BadRequest();
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,5 +17,8 @@ namespace VendingMachine.Services
         void ClearSum();
         List<Coin> GetCoins();
         void Purchase(int sum);
+        bool EditCoin(Coin editedCoin);
+        bool DeleteCoin(Coin coin);
+        bool AddCoin(Coin coin);
     }
 }

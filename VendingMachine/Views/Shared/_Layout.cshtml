@@ -8,10 +8,10 @@
     <title>AspNetCore.Vue.js</title>
 
     <environment include="Development">
-        <link rel="stylesheet" href="~/dist/css/vendor/main.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/dist/css/vendor/main.css" asp-append-version="true" type="text/css" />
     </environment>
     <environment exclude="Development">
-        <link rel="stylesheet" href="~/dist/css/vendor/main.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/dist/css/vendor/main.css" asp-append-version="true" type="text/css" />
     </environment>
 
     @RenderSection("Styles", required: false)
