@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using VendingMachine.Data;
+using VendingMachine.Services;
 
 namespace VendingMachine.Controllers
 {
@@ -11,19 +12,46 @@ namespace VendingMachine.Controllers
     public class CategoryController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly ICategoryService _categoryService;
 
-        public CategoryController(ApplicationDbContext context)
+        public CategoryController(ApplicationDbContext context, ICategoryService categoryService)
         {
             _context = context;
+            _categoryService = categoryService;
         }
 
         [HttpGet]
-        public List<ProductCategory> GetCategories()
+        public List<ProductCategory> GetAllCategories()
         {
-            return _context
-                .ProductCategories
-                .OrderBy(x => x.Weight)
-                .ToList();
+            return _categoryService.GetAllCategories();
+        }
+
+        [HttpGet]
+        public List<ProductCategory> GetFilledCategories()
+        {
+            return _categoryService.GetFilledCategories();
+        }
+
+        [HttpPost]
+        public IActionResult AddCategory([FromBody] ProductCategory category)
+        {
+            var result = _categoryService.AddCategory(category);
+            if (result) return Ok();
+            else return BadRequest();
+        }
+
+        [HttpPost]
+        public IActionResult EditCategory([FromBody] ProductCategory category)
+        {
+            var result = _categoryService.EditCategory(category);
+            if (result) return Ok();
+            else return BadRequest();
+        }
+
+        [HttpPost]
+        public string DeleteCategory([FromBody] ProductCategory category)
+        {
+            return _categoryService.DeleteCategory(category);
         }
     }
 }

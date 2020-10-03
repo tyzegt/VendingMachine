@@ -24,7 +24,7 @@ export default class Showcase extends Vue {
     }
     
     loadCategories() {
-        RefData.getCategories().then(result => {
+        RefData.getFilledCategories().then(result => {
             this.categories = result;
             console.log("cats:", this.categories);
         });

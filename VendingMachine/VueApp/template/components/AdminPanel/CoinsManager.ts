@@ -4,6 +4,7 @@ import RefData from "@/template/util/RefData";
 import Coin from "@/template/models/Coin";
 import { BIconPencil, BIconX, BIconPlus } from 'bootstrap-vue';
 import axios from "axios";
+import Toaster from "@/template/util/Toaster";
 
 @Component({
     components: {
@@ -67,11 +68,11 @@ export default class CoinsManager extends Vue {
     saveCoin() {
         var route = this.editedCoin.id == -1 ? "/Coins/AddCoin" : "/Coins/EditCoin";
         axios.post(route, this.editedCoin).then(result => {
-            this.toast("Изменения сохранены", "Успешно", "success");
+            Toaster.toast(this.$bvToast, "Изменения сохранены", "Успешно", "success");
             this.loadCoins();
         }).catch(error => {
             console.log(error);
-            this.toast("Что-то пошло не так", "Ошибка", "danger");
+            Toaster.toast(this.$bvToast, "Что-то пошло не так", "Ошибка", "danger");
             this.loadCoins();
         });
     }
@@ -82,25 +83,15 @@ export default class CoinsManager extends Vue {
         .then(result => {
             if(result) {
                 axios.post("/Coins/DeleteCoin", selectedCoin).then(result => {
-                    this.toast("Монета удалена", "Успешно", "success");
+                    Toaster.toast(this.$bvToast, "Монета удалена", "Успешно", "success");
                     this.loadCoins();
                 }).catch(error => {
                     console.log(error);
-                    this.toast("Что-то пошло не так", "Ошибка", "danger");
+                    Toaster.toast(this.$bvToast, "Что-то пошло не так", "Ошибка", "danger");
                     this.loadCoins();
                 });
             }
         });
-    }
-
-    toast(message: string, title: string, variant: string) {
-        this.$bvToast.toast(message, {
-          title: title,
-          variant: variant,
-          toaster: 'b-toaster-bottom-right',
-          solid: true,
-          appendToast: false
-        })
     }
 
 }

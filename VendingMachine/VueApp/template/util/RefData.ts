@@ -11,8 +11,12 @@ export default class RefData extends Vue {
         return await (await axios.get("/Coins/GetCoins")).data;
     }
 
-    public static async getCategories(): Promise<Category[]> {
-        return await (await axios.get("/Category/GetCategories")).data;
+    public static async getAllCategories(): Promise<Category[]> {
+        return await (await axios.get("/Category/GetAllCategories")).data;
+    }
+
+    public static async getFilledCategories(): Promise<Category[]> {
+        return await (await axios.get("/Category/GetFilledCategories")).data;
     }
 
     public static async getProductsByCategory(categoryId: number): Promise<Product[]> {

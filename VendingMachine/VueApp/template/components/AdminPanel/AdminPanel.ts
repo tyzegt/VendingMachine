@@ -20,7 +20,7 @@ export default class AdminPanel extends Vue {
     isSigned: boolean = false;
     loading = true;
 
-    mounted() {
+    async mounted() {
         this.checkSession();
     }
 

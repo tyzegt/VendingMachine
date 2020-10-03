@@ -31,6 +31,7 @@ namespace VendingMachine
             });
             services.AddHttpContextAccessor();
             services.AddTransient<ICoinService, CoinService>();
+            services.AddTransient<ICategoryService, CategoryService>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

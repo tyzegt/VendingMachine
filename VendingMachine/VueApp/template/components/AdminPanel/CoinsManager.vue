@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b-modal @ok="saveCoin" id="editing-modal" title="Редактирование">
+        <b-modal @ok="saveCoin" id="coin-editing-modal" title="Редактирование">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text">Номинал:</span>
@@ -23,7 +23,7 @@
             :rows="coins">
             <template slot="table-row" slot-scope="props">  
                 <span v-if="props.column.field == 'edit'">
-                    <b-button v-b-modal.editing-modal variant="warning" @click="editCoin(props.row.id)">
+                    <b-button v-b-modal.coin-editing-modal variant="warning" @click="editCoin(props.row.id)">
                         <b-icon-pencil></b-icon-pencil>
                     </b-button>
                     <b-button variant="danger" @click="deleteCoin(props.row.id)"><b-icon-x></b-icon-x></b-button>
