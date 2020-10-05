@@ -64,6 +64,7 @@ namespace VendingMachine.Controllers
         [HttpPost]
         public IActionResult EditCoin([FromBody] Coin editedCoin)
         {
+            if (HttpContext.Session.GetInt32("LoggedIn") != 1) return BadRequest();
             var result = _coinService.EditCoin(editedCoin);
             if (result) return Ok();
             else return BadRequest();
@@ -75,6 +76,7 @@ namespace VendingMachine.Controllers
         [HttpPost]
         public IActionResult DeleteCoin([FromBody] Coin coin)
         {
+            if (HttpContext.Session.GetInt32("LoggedIn") != 1) return BadRequest();
             var result = _coinService.DeleteCoin(coin);
             if (result) return Ok();
             else return BadRequest();
@@ -87,6 +89,7 @@ namespace VendingMachine.Controllers
         [HttpPost]
         public IActionResult AddCoin([FromBody] Coin coin)
         {
+            if (HttpContext.Session.GetInt32("LoggedIn") != 1) return BadRequest();
             var result = _coinService.AddCoin(coin);
             if (result) return Ok();
             else return BadRequest();

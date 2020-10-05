@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using VendingMachine.Data;
 using VendingMachine.Models;
@@ -12,55 +13,56 @@ namespace VendingMachine.Controllers
     [Route("[controller]/[action]")]
     public class ProductController : Controller
     {
-        private readonly ApplicationDbContext _context;
-        private readonly ICoinService _coinService;
+        private readonly IProductService _productService;
 
-        public ProductController(ApplicationDbContext context, ICoinService coinService)
+        public ProductController(IProductService productService)
         {
-            _context = context;
-            _coinService = coinService;
+            _productService = productService;
         }
 
         [HttpGet]
         public List<Product> GetByCategory(int categoryId)
         {
-            return _context.Products
-                .Where(x => x.CategoryId == categoryId)
-                .OrderBy(x => x.Weight)
-                .ToList();
+            return _productService.GetByCategory(categoryId);
         }
 
         [HttpPost]
-        public List<Product> GetAll()
+        public ProductsViewModel GetProducts([FromBody] ProductsRequest request)
         {
-            return _context.Products
-                .OrderByDescending(x => x.Id)
-                .ToList();
+            return _productService.GetProducts(request);
         }
 
         [HttpPost]
         public bool Buy(int productId)
         {
-            var product = _context.Products.FirstOrDefault(x => x.Id == productId);
-            if (PurchaseIsValid(product))
-            {
-                product.Count--;
-                var a = _coinService.GetSum() - product.Price;
-                _coinService.Purchase(product.Price);
-                _context.SaveChanges();
-                return true;
-            }
+            return _productService.Buy(productId);
+        }
+
+        [HttpPost]
+        public bool AddProduct([FromBody] Product product)
+        {
+            if (HttpContext.Session.GetInt32("LoggedIn") == 1)
+                return _productService.AddProduct(product);
             else
                 return false;
         }
 
-        private bool PurchaseIsValid(Product product)
+        [HttpPost]
+        public bool EditProduct([FromBody] Product product)
         {
-            return
-                product != null && 
-                product.Count > 0 && 
-                product.IsAvailable && 
-                _coinService.GetSum() >= product.Price;
+            if (HttpContext.Session.GetInt32("LoggedIn") == 1)
+                return _productService.EditProduct(product);
+            else
+                return false;
+        }
+
+        [HttpPost]
+        public bool DeleteProduct([FromBody] Product product)
+        {
+            if (HttpContext.Session.GetInt32("LoggedIn") == 1)
+                return _productService.DeleteProduct(product);
+            else
+                return false;
         }
     }
 }

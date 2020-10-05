@@ -59,14 +59,14 @@ export default class CoinsManager extends Vue {
     }
 
     resetEditedCoin() {
-        this.editedCoin.id = -1;
+        this.editedCoin.id = 0;
         this.editedCoin.count = 0;
         this.editedCoin.value = 0;
         this.editedCoin.isAvailable = false;
     }
 
     saveCoin() {
-        var route = this.editedCoin.id == -1 ? "/Coins/AddCoin" : "/Coins/EditCoin";
+        var route = this.editedCoin.id == 0 ? "/Coins/AddCoin" : "/Coins/EditCoin";
         axios.post(route, this.editedCoin).then(result => {
             Toaster.toast(this.$bvToast, "Изменения сохранены", "Успешно", "success");
             this.loadCoins();

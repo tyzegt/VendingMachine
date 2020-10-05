@@ -4,6 +4,8 @@ import Coin from "../models/Coin";
 import Product from "../models/Product";
 import Category from "../models/Category";
 import PagingOptions from "../models/PagingOptions";
+import ProductsRequest from "../models/ProductsRequest";
+import ProductsViewModel from "../models/ProductsViewModel";
 
 export default class RefData extends Vue {
     
@@ -23,7 +25,7 @@ export default class RefData extends Vue {
         return await (await axios.get("/Product/GetByCategory?categoryId=" + categoryId)).data;
     }
 
-    public static async getProductsAll(): Promise<Product[]> {
-        return await (await axios.post("/Product/GetAll")).data;
+    public static async getProducts(param: ProductsRequest): Promise<ProductsViewModel> {
+        return await (await axios.post("/Product/GetProducts", param)).data;
     }
 }

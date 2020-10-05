@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,6 +36,7 @@ namespace VendingMachine.Controllers
         [HttpPost]
         public IActionResult AddCategory([FromBody] ProductCategory category)
         {
+            if (HttpContext.Session.GetInt32("LoggedIn") != 1) return BadRequest();
             var result = _categoryService.AddCategory(category);
             if (result) return Ok();
             else return BadRequest();
@@ -43,6 +45,7 @@ namespace VendingMachine.Controllers
         [HttpPost]
         public IActionResult EditCategory([FromBody] ProductCategory category)
         {
+            if (HttpContext.Session.GetInt32("LoggedIn") != 1) return BadRequest();
             var result = _categoryService.EditCategory(category);
             if (result) return Ok();
             else return BadRequest();
@@ -51,6 +54,7 @@ namespace VendingMachine.Controllers
         [HttpPost]
         public string DeleteCategory([FromBody] ProductCategory category)
         {
+            if (HttpContext.Session.GetInt32("LoggedIn") != 1) return "error";
             return _categoryService.DeleteCategory(category);
         }
     }

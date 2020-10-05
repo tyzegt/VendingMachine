@@ -1,5 +1,5 @@
 export default class Category {
-    id: number = -1;
+    id: number = 0;
     name: string = "";
-    weight: number = -1;
+    weight: number = 10;
 }

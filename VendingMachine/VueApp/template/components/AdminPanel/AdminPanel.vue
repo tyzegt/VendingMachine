@@ -26,13 +26,13 @@
                         Панель управления торговым автоматом
                     </b-card-header>
                     <b-tabs card>
-                        <b-tab title="Товары" active>
+                        <b-tab lazy title="Товары" active>
                             <ProductsManager></ProductsManager>
                         </b-tab>
-                        <b-tab title="Категории">
+                        <b-tab lazy title="Категории">
                             <CategoriesManager></CategoriesManager>
                         </b-tab>
-                        <b-tab title="Монеты">
+                        <b-tab lazy title="Монеты">
                             <CoinsManager></CoinsManager>
                         </b-tab>
                     </b-tabs>
@@ -47,5 +47,10 @@
 <style>
 .tabs {
     display:block;
+    white-space: normal;
+}
+ul.pagination {
+    border-bottom-width: 0px;
+    border-bottom: 0px;
 }
 </style>

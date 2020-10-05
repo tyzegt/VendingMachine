@@ -38,7 +38,8 @@ export default class CategoriesManager extends Vue {
 
     resetEditedCategory() {
         this.name = "";
-        this.weight = 1000;
+        this.weight = 10;
+        this.editedCategory.id = 0;
     }
     
     mounted() {       
@@ -81,7 +82,7 @@ export default class CategoriesManager extends Vue {
     }
 
     saveCategory() {
-        var route = this.editedCategory.id == -1 ? "/Category/AddCategory" : "/Category/EditCategory";
+        var route = this.editedCategory.id == 0 ? "/Category/AddCategory" : "/Category/EditCategory";
         axios.post(route, this.editedCategory).then(result => {
             Toaster.toast(this.$bvToast, "Изменения сохранены", "Успешно", "success");
             this.loadCategories();

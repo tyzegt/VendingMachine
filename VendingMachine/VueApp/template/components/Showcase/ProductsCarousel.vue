@@ -22,7 +22,10 @@
                                     :variant="product.isAvailable ? 'success' : 'secondary'" 
                                     :disabled="isButtonDisabled(product)" class="float-right" block>
                                     <b-icon-cart4></b-icon-cart4>
-                                    Купить за <b>{{product.price}}р.</b>
+                                    <span v-if="product.isAvailable">
+                                        Купить за <b>{{product.price}}р.</b>
+                                    </span>
+                                    <span v-else>Недоступно</span>
                                 </b-button>
                             </template>
                         </b-card>
